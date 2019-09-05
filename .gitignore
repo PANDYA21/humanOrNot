@@ -105,3 +105,6 @@ venv.bak/
 
 # sublime workspace
 *.sublime-workspace
+
+# R
+.Rapp.history
