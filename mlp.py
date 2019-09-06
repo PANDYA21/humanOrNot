@@ -27,8 +27,11 @@ def trainAndEvaulateMLP(given_seed):
   cm = confusion_matrix(y_test, y_pred)
   acc = accuracy_score(y_test, y_pred)
   f = f1_score(y_test, y_pred)
-  print('Confusion Matrix: ', cm, '\n')
-  return [acc, f, mlp_end_time - mlp_start_time]
+  prec = precision_score(y_test, y_pred)
+  rec = recall_score(y_test, y_pred)
+  auc = roc_auc_score(y_test, y_pred)
+  print('Confusion Matrix: ', '\n', cm, '\n')
+  return [acc, f, mlp_end_time - mlp_start_time, prec, rec, auc]
 
 
 # choose some random seeds
@@ -37,3 +40,7 @@ ans = [trainAndEvaulateMLP(seed) for seed in seeds]
 accs_mlp = [i[0] for i in ans]
 fs_mlp = [i[1] for i in ans]
 t_mlp = [i[2] for i in ans]
+prec_mlp = [i[3] for i in ans]
+rec_mlp = [i[4] for i in ans]
+auc_mlp = [i[5] for i in ans]
+

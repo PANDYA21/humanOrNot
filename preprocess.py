@@ -1,7 +1,6 @@
-import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
 
 # read in data - part-1: heros information file
 heros_info = pd.read_csv('./data/heroes_information.csv')

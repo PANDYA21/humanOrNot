@@ -14,7 +14,7 @@ def trainAndEvaulateLR(given_seed):
     random_state=given_seed, 
     solver='lbfgs', 
     max_iter=2e5, 
-    tol=1e-50,
+    tol=1e-5,
     multi_class='multinomial')
   clf.fit(X_train, y_train)
   lr_end_time = time.time()
@@ -24,8 +24,11 @@ def trainAndEvaulateLR(given_seed):
   cm = confusion_matrix(y_test, y_pred)
   acc = accuracy_score(y_test, y_pred)
   f = f1_score(y_test, y_pred)
-  print('Confusion Matrix: ', cm, '\n')
-  return [acc, f, lr_end_time - lr_start_time]
+  prec = precision_score(y_test, y_pred)
+  rec = recall_score(y_test, y_pred)
+  auc = roc_auc_score(y_test, y_pred)
+  print('Confusion Matrix: ', '\n', cm, '\n')
+  return [acc, f, lr_end_time - lr_start_time, prec, rec, auc]
 
 
 # choose some random seeds
@@ -34,3 +37,6 @@ ans = [trainAndEvaulateLR(seed) for seed in seeds]
 accs_lr = [i[0] for i in ans]
 fs_lr = [i[1] for i in ans]
 t_lr = [i[2] for i in ans]
+prec_lr = [i[3] for i in ans]
+rec_lr = [i[4] for i in ans]
+auc_lr = [i[5] for i in ans]
