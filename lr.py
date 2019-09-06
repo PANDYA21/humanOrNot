@@ -1,31 +1,31 @@
 from sklearn.linear_model import LogisticRegression
 from preprocess import *
+import time
+
 
 def trainAndEvaulateLR(given_seed):
+  lr_start_time = time.time()
   # random split data
   X_train, X_test, y_train, y_test = splitData(given_seed)
+  # print a message for debugging purposes
+  print('Training LR with seed: ', given_seed)
   # train with LR
   clf = LogisticRegression(
-    random_state=35, 
+    random_state=given_seed, 
     solver='lbfgs', 
     max_iter=2e5, 
     tol=1e-50,
     multi_class='multinomial')
   clf.fit(X_train, y_train)
+  lr_end_time = time.time()
   # predict on test data
   y_pred = clf.predict(X_test)
   # evaluate the model
   cm = confusion_matrix(y_test, y_pred)
   acc = accuracy_score(y_test, y_pred)
   f = f1_score(y_test, y_pred)
-  print('Confusion Matrix: ')
-  print(cm)
-  print('\n')
-  print('Accuracy: ')
-  print(acc)
-  print('\n')
-  return [acc,f]
-  # return clf,cm,acc,f
+  print('Confusion Matrix: ', cm, '\n')
+  return [acc, f, lr_end_time - lr_start_time]
 
 
 # choose some random seeds
@@ -33,3 +33,4 @@ seeds = [1,3,35,279,20]
 ans = [trainAndEvaulateLR(seed) for seed in seeds]
 accs_lr = [i[0] for i in ans]
 fs_lr = [i[1] for i in ans]
+t_lr = [i[2] for i in ans]

@@ -5,11 +5,9 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 
 # read in data - part-1: heros information file
 heros_info = pd.read_csv('./data/heroes_information.csv')
-# heros_info.head()
 
 # read in data - part-2: heros superpowers file
 heros_power = pd.read_csv('./data/super_hero_powers.csv')
-# heros_power.head()
 
 # since only binary classification is required, create a feature that defines weather the hero is human or not
 heros_info['isHuman'] = heros_info['Race'].apply(lambda i: 1 if i == 'Human' else 0)
