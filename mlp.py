@@ -9,7 +9,7 @@ def trainAndEvaulateMLP(given_seed):
     solver='lbfgs',
     activation='logistic',
     alpha=1e-4,
-    max_iter=1e1,
+    max_iter=2e2,
     learning_rate='adaptive',
     verbose=False,
     hidden_layer_sizes=(800, 50),
@@ -20,19 +20,20 @@ def trainAndEvaulateMLP(given_seed):
   # evaluate the model
   cm = confusion_matrix(y_test, y_pred)
   acc = accuracy_score(y_test, y_pred)
-  f = f1_score
+  f = f1_score(y_test, y_pred)
   print('Confusion Matrix: ')
   print(cm)
   print('\n')
   print('Accuracy: ')
   print(acc)
   print('\n')
-  return acc
+  return [acc,f]
   # return clf,cm,acc,f
 
 
 # choose some random seeds
 seeds = [1,3,35,279,20]
-accs_mlp = [trainAndEvaulateMLP(seed) for seed in seeds]
-
-print(accs)
+ans = [trainAndEvaulateMLP(seed) for seed in seeds]
+accs_mlp = [i[0] for i in ans]
+fs_mlp = [i[1] for i in ans]
+# print(accs_mlp, fs_mlp)
