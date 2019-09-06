@@ -1,7 +1,9 @@
 from sklearn.neural_network import MLPClassifier
 from preprocess import *
 
-def trainMLP(given_seed):
+def trainAndEvaulateMLP(given_seed):
+  # random split data
+  X_train, X_test, y_train, y_test = splitData(given_seed)
   # train with MLP
   clf = MLPClassifier(
     solver='lbfgs',
@@ -13,37 +15,24 @@ def trainMLP(given_seed):
     hidden_layer_sizes=(800, 50),
     random_state=given_seed)
   clf.fit(X_train, y_train)
-  return clf
-
-def evaluate(clf):
   # predict on test data
   y_pred = clf.predict(X_test)
   # evaluate the model
+  cm = confusion_matrix(y_test, y_pred)
+  acc = accuracy_score(y_test, y_pred)
+  f = f1_score
   print('Confusion Matrix: ')
-  print(confusion_matrix(y_test, y_pred))
+  print(cm)
   print('\n')
   print('Accuracy: ')
-  print(accuracy_score(y_test, y_pred))
+  print(acc)
   print('\n')
+  return acc
+  # return clf,cm,acc,f
 
 
-# clf = trainMLP()
-# # predict on test data
-# y_pred = clf.predict(X_test)
-
-# # evaluate the model
-# print('Confusion Matrix: ')
-# print(confusion_matrix(y_test, y_pred))
-# print('\n')
-# print('Accuracy: ')
-# print(accuracy_score(y_test, y_pred))
-# print('\n')
-
+# choose some random seeds
 seeds = [1,3,35,279,20]
-clfs = [trainMLP(seed) for seed in seeds]
-[evaluate(clf) for clf in clfs]
+accs_mlp = [trainAndEvaulateMLP(seed) for seed in seeds]
 
-
-# ans = map(trainMLP, seeds)
-# # print(ans)
-# print(map(evaluate, ans))
+print(accs)

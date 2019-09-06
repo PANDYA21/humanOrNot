@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 
 # read in data - part-1: heros information file
 heros_info = pd.read_csv('./data/heroes_information.csv')
@@ -39,10 +39,11 @@ X_columns_drop = ['name', 'Publisher', 'hero_names', 'Race', 'isHuman']
 X, y = heros.drop(X_columns_drop, axis=1), heros['isHuman']
 
 # split dataframes into train and test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=35)
-print('Trainig size: ')
-print(X_train.shape)
-print('Test size: ')
-print(X_test.shape)
-print('\n')
-
+def splitData(seed):
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=seed)
+  print('Trainig size: ')
+  print(X_train.shape)
+  print('Test size: ')
+  print(X_test.shape)
+  print('\n')
+  return X_train, X_test, y_train, y_test
