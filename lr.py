@@ -1,8 +1,11 @@
+# imports
 from sklearn.linear_model import LogisticRegression
 from preprocess import *
 import time
+from globals import *
 
 
+# method to train LR
 def trainAndEvaulateLR(given_seed):
   lr_start_time = time.time()
   # random split data
@@ -31,8 +34,7 @@ def trainAndEvaulateLR(given_seed):
   return [acc, f, lr_end_time - lr_start_time, prec, rec, auc]
 
 
-# choose some random seeds
-seeds = [1,3,35,279,20]
+# execute
 ans = [trainAndEvaulateLR(seed) for seed in seeds]
 accs_lr = [i[0] for i in ans]
 fs_lr = [i[1] for i in ans]

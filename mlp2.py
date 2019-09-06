@@ -5,8 +5,8 @@ import time
 from globals import *
 
 
-# Method to train and evaulate MLP with logistic activation
-def trainAndEvaulateMLP(given_seed):
+# Method to train and evaulate MLP with tanh activation
+def trainAndEvaulateMLP2(given_seed):
   mlp_start_time = time.time()
   # random split data
   X_train, X_test, y_train, y_test = splitData(given_seed)
@@ -15,7 +15,7 @@ def trainAndEvaulateMLP(given_seed):
   # train with MLP
   clf = MLPClassifier(
     solver='lbfgs',
-    activation='logistic',
+    activation='tanh',
     alpha=1e-4,
     max_iter=2e2,
     learning_rate='adaptive',
@@ -36,13 +36,12 @@ def trainAndEvaulateMLP(given_seed):
   print('Confusion Matrix: ', '\n', cm, '\n')
   return [acc, f, mlp_end_time - mlp_start_time, prec, rec, auc]
 
-
 # execute
-ans = [trainAndEvaulateMLP(seed) for seed in seeds]
-accs_mlp = [i[0] for i in ans]
-fs_mlp = [i[1] for i in ans]
-t_mlp = [i[2] for i in ans]
-prec_mlp = [i[3] for i in ans]
-rec_mlp = [i[4] for i in ans]
-auc_mlp = [i[5] for i in ans]
+ans = [trainAndEvaulateMLP2(seed) for seed in seeds]
+accs_mlp2 = [i[0] for i in ans]
+fs_mlp2 = [i[1] for i in ans]
+t_mlp2 = [i[2] for i in ans]
+prec_mlp2 = [i[3] for i in ans]
+rec_mlp2 = [i[4] for i in ans]
+auc_mlp2 = [i[5] for i in ans]
 
