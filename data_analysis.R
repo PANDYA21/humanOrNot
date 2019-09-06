@@ -27,3 +27,6 @@ heroes_info <- fread('data/heroes_information.csv')
 hero_powers <- fread('data/super_hero_powers.csv')
 
 joined <- merge(heroes_info, hero_powers, by.x = 'name', by.y = 'hero_names')
+# summary(joined)
+print(dim(joined))
+print(dim(joined[complete.cases(joined)]))
